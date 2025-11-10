@@ -5,3 +5,4 @@ if [ -n "$pid" ]; then
     kill "$pid"
     echo "OK"
 fi
+echo "OK"
