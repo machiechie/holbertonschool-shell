@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # This script is displaying something
 for pid in $(pgrep -f "4-to_infinity_and_beyond"); do
-    # Send EOF to the process's stdin to terminate it
-    true > /proc/"$pid"/fd/0 2>/dev/null
-done
+    # Send EOF to stdin to terminate the process
+    exec 3>/proc/"$pid"/fd/0 2>/dev/null
+    exec 3>&-
+done > /dev/null 2>&1
