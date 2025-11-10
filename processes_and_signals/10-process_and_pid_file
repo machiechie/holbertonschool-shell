@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Explanation
-echo "$$" > /var/run/myscript.pid
-trap 'echo "I hate the kill command"' SIGTERM
+echo $$ > /tmp/myscript.pid   # Use /tmp if non-root
+trap 'echo "I hate the kill command"; rm -f /tmp/myscript.pid; exit' SIGTERM
 trap 'echo "Y U no love me?!"' SIGINT
-trap 'rm -f /var/run/myscript.pid; exit' SIGQUIT SIGTERM
+trap 'rm -f /tmp/myscript.pid; exit' SIGQUIT
 while true; do
     echo "To infinity and beyond"
     sleep 2
