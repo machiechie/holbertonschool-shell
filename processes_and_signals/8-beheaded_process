@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 # Explanation
 pkill -f 7-highlander 2>/dev/null
+echo "OK"
