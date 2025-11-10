@@ -1,8 +1,3 @@
 #!/usr/bin/env bash
 # Explanation
-if [ -n "$pid" ]; then
-    kill "$pid" 2>/dev/null
-fi
-
-# Print only the expected output
-echo "OK"
+pkill -f 7-highlander 2>/dev/null
