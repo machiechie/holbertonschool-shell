@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# This script is displaying something
+while true; do
+echo "To infinity and beyond" 
+done
