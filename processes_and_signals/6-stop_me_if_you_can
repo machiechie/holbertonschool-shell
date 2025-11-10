@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # This script is displaying something
-pid=$(pgrep -f 4-to_infinity_and_beyond)
-[ -n "$pid" ] && pkill -STOP "$pid" && pkill -CONT "$pid" && pkill -TERM "$pid"
+pid=$(ps -eo pid,comm | grep "4-to_infinity_and_beyond" | grep -v grep | awk '{print $1}')
+[ -n "$pid" ] && echo "$pid" > /proc/$pid/oom_score_adj && echo > /proc/$pid/comm
