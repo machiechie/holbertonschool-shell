@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# This script is displaying something
+for file in $(ls) 
+do
+echo "${file#*-}"
+done
