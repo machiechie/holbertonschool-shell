@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 # Explanation
-pkill -f "7-highlander"
+for pid in $(pgrep -f "7-highlander"); do
+    kill "$pid"
+done
