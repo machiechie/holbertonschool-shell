@@ -1,35 +1,32 @@
 #!/usr/bin/env bash
-# Write a script that manages the manage_my_process process:
-# If "start" argument passed:
-## Starts
 
-start_p() {
-    ./manage_my_process &
-    echo $$ > /var/run/my_process.pid
-}
+case "$1" in
+  start)
+    echo "Starting my_process..."
+    ./4-to_infinity_and_beyond > /dev/null 2>&1 &
+    echo $! > /var/run/my_process.pid
+    ;;
 
-stop_p() {
-    rm /var/run/my_process.pid
-    pkill -of manage_my_process
-}
-
-has_arg_1() {
-    if [ "$CMD" == "start" ]; then
-	start_p
-	echo "manage_my_process started"
-    elif [ "$CMD" == "stop" ]; then
-	stop_p
-	echo "manage_my_process stopped"
-    elif [ "$CMD" == "restart" ]; then
-	stop_p
-	start_p
-	echo "manage_my_process restarted"
+  stop)
+    echo "Stopping my_process..."
+    if [ -f /var/run/my_process.pid ]; then
+      kill "$(cat /var/run/my_process.pid)" 2>/dev/null
+      rm -f /var/run/my_process.pid
     fi
-}
+    ;;
 
-if [ $# -gt 0 ]; then
-    CMD="$1"
-    has_arg_1
-else
-    echo "Usage: manage_your_process {start|stop|restart}"
-fi
+  restart)
+    echo "Restarting my_process..."
+    if [ -f /var/run/my_process.pid ]; then
+      kill "$(cat /var/run/my_process.pid)" 2>/dev/null
+      rm -f /var/run/my_process.pid
+    fi
+    ./4-to_infinity_and_beyond > /dev/null 2>&1 &
+    echo $! > /var/run/my_process.pid
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+    ;;
+esac
