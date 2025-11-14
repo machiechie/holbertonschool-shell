@@ -3,7 +3,7 @@
 case "$1" in
   start)
     echo "Starting my_process..."
-    ./4-to_infinity_and_beyond > /dev/null 2>&1 &
+    ./10-my_process > /dev/null 2>&1 &
     echo $! > /var/run/my_process.pid
     ;;
 
@@ -21,7 +21,7 @@ case "$1" in
       kill "$(cat /var/run/my_process.pid)" 2>/dev/null
       rm -f /var/run/my_process.pid
     fi
-    ./4-to_infinity_and_beyond > /dev/null 2>&1 &
+    ./10-my_process > /dev/null 2>&1 &
     echo $! > /var/run/my_process.pid
     ;;
 
