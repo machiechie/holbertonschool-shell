@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+# Write a script that manages the manage_my_process process:
+# If "start" argument passed:
+## Starts
+
 start_p() {
     ./manage_my_process &
     echo $$ > /var/run/my_process.pid
