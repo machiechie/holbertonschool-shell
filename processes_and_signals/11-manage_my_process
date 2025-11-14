@@ -1,27 +1,31 @@
 #!/usr/bin/env bash
-# Manage Processes
-startme()
-{
+start_p() {
     ./manage_my_process &
-    echo "$!" > /var/run/my_process.pid
+    echo $$ > /var/run/my_process.pid
 }
-stopme()
-{
-    sudo kill -15 "$(cat /var/run/my_process.pid)"
-    rm -f /var/run/my_process.pid
+
+stop_p() {
+    rm /var/run/my_process.pid
+    pkill -of manage_my_process
 }
-case "$1" in
-    start) startme
-	   echo "manage_my_process started"
-	   ;;
-    stop) stopme
-	  echo "manage_my_process stopped"
-	  ;;
-    restart) stopme
-	     startme
-             echo "manage_my_process restarted"
-	     ;;
-    *) echo "Usage: manage_my_process {start|stop|restart}"
-       ;;
-esac
-exit 0
+
+has_arg_1() {
+    if [ "$CMD" == "start" ]; then
+	start_p
+	echo "manage_my_process started"
+    elif [ "$CMD" == "stop" ]; then
+	stop_p
+	echo "manage_my_process stopped"
+    elif [ "$CMD" == "restart" ]; then
+	stop_p
+	start_p
+	echo "manage_my_process restarted"
+    fi
+}
+
+if [ $# -gt 0 ]; then
+    CMD="$1"
+    has_arg_1
+else
+    echo "Usage: manage_your_process {start|stop|restart}"
+fi

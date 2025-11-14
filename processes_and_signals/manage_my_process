@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-# Manage processes daemons, init
-while ((1))
+while true
 do
     echo "I am alive!" >> /tmp/my_process
     sleep 2
